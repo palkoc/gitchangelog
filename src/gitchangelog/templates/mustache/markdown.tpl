@@ -10,7 +10,7 @@
 ### {{{label}}}
 
 {{#commits}}
-* {{{subject}}} [{{{author}}}]
+* {{{subject}}} ({{{commit_author_date}}}) [{{{author}}}]
 {{#body}}
 
 {{{body_indented}}}

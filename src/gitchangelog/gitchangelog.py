@@ -1190,9 +1190,10 @@ def rest_py(data, opts={}):
         return s
 
     def render_commit(commit, opts=opts):
+        commit_author_date = datetime.datetime.fromtimestamp(int(commit["commit"].author_date_timestamp)).strftime('%Y-%m-%d')
         subject = commit["subject"]
+        subject += " (%s)" % (commit_author_date)
         subject += " [%s]" % (", ".join(commit["authors"]),)
-
         entry = indent("\n".join(textwrap.wrap(subject)), first="- ").strip() + "\n"
 
         if commit["body"]:
@@ -1486,6 +1487,7 @@ if pystache:
                     for commit in section["commits"]:
                         commit["author_names_joined"] = ", ".join(commit["authors"])
                         commit["body_indented"] = indent(commit["body"])
+                        commit["commit_author_date"] = datetime.datetime.fromtimestamp(int(commit["commit"].author_date_timestamp)).strftime('%Y-%m-%d')
                 yield version
 
         def renderer(data, opts):
